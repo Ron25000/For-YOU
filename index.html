@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Clarity ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
+                url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.card {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    width: 500px;
+    max-width: 90%;
+    /* Added height control for longer text */
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    color: white;
+}
+
+/* Custom Scrollbar for the card */
+.card::-webkit-scrollbar {
+    width: 5px;
+}
+.card::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+h1 { margin-bottom: 20px; font-size: 26px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+
+button {
+    padding: 14px 32px;
+    border-radius: 30px;
+    border: none;
+    background: white;
+    color: #0b1026;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+button.fade-out { 
+    opacity: 0; 
+    pointer-events: none; 
+    display: none; /* Removed from layout once clicked */
+}
+
+#letter {
+    margin-top: 10px;
+    font-size: 18px;
+    line-height: 1.8;
+    white-space: pre-line;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+    text-align: left; /* Better for long letters */
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 20px;
+    animation: float 7s linear infinite;
+    z-index: 1;
+    color: white; 
+    filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff);
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
+}
+
+#player-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 200px; height: 200px;
+    z-index: -1; opacity: 0.01;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="mainCard">
+    <h1 id="title">Just a small proof :)) <333 ✨</h1>
+    <button id="mainBtn" disabled onclick="startExperience()">Loading Stars...</button>
+    <div id="letter"></div>
+</div>
+
+<div id="player-container">
+    <div id="youtube-player"></div>
+</div>
+
+<script>
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        height: '200', width: '200',
+        videoId: 'IxxstCcJlsc', 
+        playerVars: { 'autoplay': 0, 'controls': 0, 'mute': 0, 'origin': window.location.origin },
+        events: {
+            'onReady': function(event) {
+                const btn = document.getElementById("mainBtn");
+                btn.disabled = false;
+                btn.innerHTML = "For being my Clarity 💌";
+            }
+        }
+    });
+}
+
+const text = `I don't know how to begin cause believe me I have never done or felt anything like this before. Everything here is what I feel, not overthinking anything...
+
+I don't mean to hurt you in any way writing this, so if I say something wrong, I'm sooooo sorryyyy.
+
+You are right, we have come so far, I still can't believe it everytime I stand in front of you. Everything with you feels right, you are sooo special, you deserve everything. I'll keep saying this time and again you are PERFECT.
+
+You always look after everyone around you. There is this quiet strength in you that moves me; quiet, steady, like something the world couldn't shake even if it tried to. You could face every thunder and storm alone and come out standing. But my love, you don't have to. 
+
+I am here, not to carry you, but to walk beside you. Through the heavy days and the tender ones and everything in between. You will never, not once, have to face any of it alone. 
+
+Every moment next to you feels so calm and peaceful. I have never tried to be like anyone else with you. I love who I am with you. You make everything perfect. Your eyes, your smile, that cute chuckle, that snort you give when you laugh. 
+
+I miss coming home to you, the way you keep food there for me. The way you made me eat that chocolate off your lips hehehe. 
+
+I melt and fall in love everytime I see you. You bring out the best in me and I'm the luckiest person in the world to have found YOU <333333333`;
+
+let index = 0;
+let started = false;
+
+function startExperience() {
+    if (started) return;
+    started = true;
+
+    document.getElementById("mainBtn").classList.add("fade-out");
+
+    if (player && player.playVideo) {
+        player.playVideo();
+        player.setVolume(60);
+    }
+
+    setTimeout(typeWriter, 1000);
+}
+
+function typeWriter() {
+    if (index < text.length) {
+        const letterDiv = document.getElementById("letter");
+        const card = document.getElementById("mainCard");
+        
+        letterDiv.innerHTML += text.charAt(index);
+        index++;
+
+        // Auto-scroll the card as it types
+        card.scrollTop = card.scrollHeight;
+
+        // SPEED ADJUSTED: 85ms for a slower, more heartfelt read
+        setTimeout(typeWriter, 85);
+    }
+}
+
+setInterval(() => {
+    const star = document.createElement("div");
+    star.classList.add("heart");
+    star.innerHTML = "✨";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.fontSize = Math.random() * 25 + 15 + "px"; 
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 7000);
+}, 800);
+</script>
+
+</body>
+</html>
